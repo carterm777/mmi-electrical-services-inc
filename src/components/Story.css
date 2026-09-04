@@ -1,0 +1,144 @@
+/* Our Story — Split Story with Sticky Photo / Minimal Line Timeline spine */
+
+.st__inner {
+  display: grid;
+  gap: var(--sp-6);
+  align-items: start;
+}
+
+/* ---- sticky photo column ---- */
+
+.st__aside {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+}
+
+.st__figure {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-sunk);
+  border-top: 2px solid var(--accent);
+}
+
+.st__img {
+  height: auto;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.9) contrast(1.03);
+}
+
+.st__figNote {
+  margin-top: 10px;
+  padding-left: 12px;
+  border-left: 1px solid var(--hairline-strong);
+}
+
+/* ---- narrative column ---- */
+
+.st__main {
+  min-width: 0;
+}
+
+.st__title {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-mid);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--tr-h2);
+  margin: var(--sp-4) 0 var(--sp-6);
+}
+
+.st__spine {
+  position: relative;
+  padding-left: var(--sp-5);
+}
+
+.st__spineRail {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--hairline);
+}
+
+/* Progressive Reveal Scrub — the spine draws with the read, not on a timer. */
+.st__spineFill {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 1px;
+  height: calc((100% - 16px) * var(--scrub, 1));
+  background: var(--accent);
+  transform-origin: top center;
+}
+
+.st__beats {
+  display: grid;
+  gap: var(--sp-6);
+}
+
+.st__beat {
+  position: relative;
+}
+
+.st__marker {
+  position: absolute;
+  left: calc(-1 * var(--sp-5) - 3px);
+  top: 11px;
+  width: 7px;
+  height: 7px;
+  background: var(--surface);
+  border: 1px solid var(--accent-ink);
+}
+
+.st__para {
+  font-size: var(--t-body);
+  line-height: 1.72;
+  color: var(--ink-muted);
+  max-width: 62ch;
+}
+
+@media (min-width: 1000px) {
+  .st__inner {
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    column-gap: var(--sp-8);
+  }
+
+  .st__aside {
+    position: sticky;
+    top: 118px;
+  }
+
+  .st__title {
+    margin: var(--sp-4) 0 var(--sp-5);
+    max-width: 12ch;
+  }
+
+  .st__main {
+    padding-top: 6px;
+  }
+
+  .st__para {
+    font-size: var(--t-lead);
+    line-height: 1.68;
+  }
+
+  .st__spine {
+    padding-left: var(--sp-6);
+  }
+
+  .st__marker {
+    left: calc(-1 * var(--sp-6) - 3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .st__spineFill {
+    height: calc(100% - 16px);
+  }
+}

@@ -1,0 +1,257 @@
+/* Services — Tabbed or Accordion Service Panel / Bordered Card with Icon Header */
+
+.sv__panel {
+  position: relative;
+  border-top: 1px solid var(--hairline-strong);
+}
+
+/* ---- index rows ---- */
+
+.sv__rowHead {
+  font-weight: inherit;
+}
+
+.sv__tab {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--hairline);
+  text-align: left;
+  color: var(--ink-muted);
+  transition:
+    color var(--dur-mid) var(--ease-out-cubic),
+    padding-left var(--dur-mid) var(--ease-out-cubic);
+}
+
+.sv__tab:hover {
+  color: var(--ink);
+  padding-left: 6px;
+}
+
+.sv__tab.is-active {
+  color: var(--ink);
+}
+
+.sv__tabIcon {
+  flex: none;
+  color: var(--ink-faint);
+  transition: color var(--dur-mid) var(--ease-out-cubic);
+}
+
+.sv__tab.is-active .sv__tabIcon,
+.sv__tab:hover .sv__tabIcon {
+  color: var(--accent-ink);
+}
+
+.sv__tabLabel {
+  flex: 1;
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-small);
+  font-weight: 600;
+  font-size: var(--t-h4);
+  line-height: 1.2;
+  letter-spacing: var(--tr-h3);
+}
+
+.sv__tabChev {
+  flex: none;
+  color: var(--ink-faint);
+  transition: transform var(--dur-mid) var(--ease-out-cubic);
+}
+
+.sv__tab.is-active .sv__tabChev {
+  transform: rotate(90deg);
+  color: var(--accent-ink);
+}
+
+/* ---- the sliding copper marker (desktop only) ---- */
+
+.sv__marker {
+  display: none;
+}
+
+/* ---- expanding view ---- */
+
+.sv__view {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 420ms var(--ease-out-quart),
+    visibility 0s linear 420ms;
+}
+
+.sv__view.is-open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 420ms var(--ease-out-quart),
+    visibility 0s linear 0s;
+}
+
+.sv__viewInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.sv__viewBox {
+  display: grid;
+  gap: var(--sp-4);
+  padding: var(--sp-5) 0 var(--sp-6);
+}
+
+.sv__figure {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-sunk);
+  border: 1px solid var(--hairline);
+}
+
+.sv__img {
+  height: auto;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.sv__meta {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 6px 11px;
+  background: var(--scrim-ink);
+  color: var(--ink-inverse-muted);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  text-transform: uppercase;
+}
+
+.sv__copy {
+  display: grid;
+  align-content: start;
+  gap: var(--sp-4);
+}
+
+.sv__body {
+  font-size: var(--t-body);
+  line-height: 1.62;
+  color: var(--ink-muted);
+  max-width: 52ch;
+}
+
+.sv__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+/* ---- desktop: real two-column tab set ---- */
+
+@media (min-width: 1000px) {
+  .sv__panel {
+    display: grid;
+    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+    column-gap: var(--sp-8);
+  }
+
+  .sv__marker {
+    display: block;
+    position: absolute;
+    left: -14px;
+    top: 0;
+    width: 2px;
+    height: var(--mh, 0px);
+    background: var(--accent);
+    transform: translateY(var(--mt, 0px));
+    transition:
+      transform 460ms var(--ease-out-quart),
+      height 460ms var(--ease-out-quart);
+  }
+
+  .sv__rowHead {
+    grid-column: 1;
+  }
+
+  .sv__view {
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    grid-template-rows: 1fr;
+    align-self: start;
+    visibility: visible;
+    transition: none;
+  }
+
+  .sv__view:not(.is-open) {
+    display: none;
+  }
+
+  .sv__viewInner {
+    overflow: visible;
+    animation: sv-swap 460ms var(--ease-out-cubic) 1;
+  }
+
+  .sv__viewBox {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--sp-5);
+    padding: 0;
+    align-items: start;
+  }
+
+  .sv__tab {
+    padding: var(--sp-4) var(--sp-3) var(--sp-4) 0;
+  }
+
+  .sv__body {
+    font-size: var(--t-lead);
+    line-height: 1.55;
+  }
+}
+
+@keyframes sv-swap {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv__view,
+  .sv__view.is-open {
+    transition: none;
+  }
+
+  .sv__viewInner {
+    animation: none;
+  }
+
+  .sv__marker {
+    transition: none;
+  }
+
+  .sv__tab:hover {
+    padding-left: 0;
+  }
+}
+
+/* Square the service photograph on desktop so the open panel sits at roughly
+   the same height as the six-row index instead of leaving the right column
+   half empty. A centre crop is safe for all six frames. */
+@media (min-width: 1000px) {
+  .sv__img {
+    aspect-ratio: 1 / 1;
+  }
+}

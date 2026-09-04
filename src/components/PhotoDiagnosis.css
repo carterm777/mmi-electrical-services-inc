@@ -1,0 +1,542 @@
+/* Photo Diagnosis — the diagnostic intake terminal.
+   The one place on the page where depth, fill and detail are spent. */
+
+.pd {
+  position: relative;
+  background: var(--surface-terminal);
+  border: 1px solid var(--hairline-dark-strong);
+  border-top: 2px solid var(--accent);
+  box-shadow: var(--sh-panel);
+  color: var(--ink-inverse);
+}
+
+/* ---- instrument bar ---- */
+
+.pd__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 7px var(--sp-4);
+  border-bottom: 1px solid var(--hairline-dark);
+  background: var(--panel-fill);
+}
+
+.pd__barMark {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-small);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--accent-lift);
+  letter-spacing: -0.01em;
+}
+
+.pd__title {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-inverse);
+}
+
+.pd__led {
+  margin-left: auto;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--n-slate-soft);
+  box-shadow: 0 0 0 3px var(--halo-idle);
+}
+
+.pd__led--busy {
+  background: var(--accent-lift);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+  animation: pd-pulse 1.1s ease-in-out infinite;
+}
+
+.pd__led--done {
+  background: var(--accent-lift);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.pd__led--error {
+  background: var(--n-ivory);
+  box-shadow: 0 0 0 3px var(--halo-ivory);
+}
+
+@keyframes pd-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ---- step indicator ---- */
+
+.pd__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--hairline-dark);
+}
+
+.pd__step {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  text-transform: uppercase;
+  color: var(--n-slate-soft);
+  border-left: 1px solid var(--hairline-dark);
+  position: relative;
+  transition: color var(--dur-mid) var(--ease-out-cubic);
+}
+
+.pd__step:first-child {
+  border-left: 0;
+}
+
+.pd__step.is-done {
+  color: var(--ink-inverse-muted);
+}
+
+.pd__step.is-active {
+  color: var(--accent-lift);
+}
+
+.pd__step.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.pd__stepNum {
+  font-weight: 600;
+}
+
+.pd__stepLabel {
+  opacity: 0.85;
+}
+
+/* ---- body ---- */
+
+.pd__body {
+  padding: var(--sp-4);
+}
+
+.pd__stage {
+  display: grid;
+  gap: 10px;
+}
+
+/* ---- drop zone ---- */
+
+.pd__drop {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 4px;
+  min-height: 76px;
+  padding: var(--sp-3);
+  text-align: center;
+  cursor: pointer;
+  border: 1px dashed var(--hairline-dark-strong);
+  background: var(--panel-fill);
+  transition:
+    border-color var(--dur-mid) var(--ease-out-cubic),
+    background-color var(--dur-mid) var(--ease-out-cubic),
+    transform var(--dur-mid) var(--ease-out-cubic);
+}
+
+.pd__drop:hover,
+.pd__drop.is-dragging {
+  border-color: var(--accent);
+  background: var(--accent-wash-strong);
+}
+
+.pd__drop.is-dragging {
+  border-style: solid;
+}
+
+.pd__drop.is-focus {
+  outline: 2px solid var(--accent-lift);
+  outline-offset: 3px;
+}
+
+.pd__drop.is-error {
+  border-color: var(--ink-inverse-muted);
+}
+
+.pd__dropIcon {
+  color: var(--accent-lift);
+}
+
+.pd__dropMain {
+  font-size: var(--t-small);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+.pd__dropMeta {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  text-transform: uppercase;
+  color: var(--ink-inverse-muted);
+}
+
+/* ---- preview ---- */
+
+.pd__preview {
+  position: relative;
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--hairline-dark);
+  overflow: hidden;
+}
+
+.pd__previewImg {
+  width: 100%;
+  height: 92px;
+  object-fit: cover;
+}
+
+.pd__preview.is-scanning::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: var(--accent-lift);
+  box-shadow: 0 0 14px 2px var(--accent-glow);
+  animation: pd-scan 900ms var(--ease-out-cubic) 1;
+}
+
+@keyframes pd-scan {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(92px);
+  }
+}
+
+.pd__previewMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: 6px var(--sp-3);
+  background: var(--panel-fill);
+  border-top: 1px solid var(--hairline-dark);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  color: var(--ink-inverse-muted);
+}
+
+.pd__previewName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pd__previewSize {
+  flex: none;
+  color: var(--accent-lift);
+}
+
+.pd__previewDrop {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  background: var(--glass-dark-solid);
+  border: 1px solid var(--hairline-dark-strong);
+  color: var(--ink-inverse);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  text-transform: uppercase;
+  transition: border-color var(--dur-fast) var(--ease-out-cubic);
+}
+
+.pd__previewDrop:hover {
+  border-color: var(--accent-lift);
+}
+
+/* ---- fields ---- */
+
+.pd__thumbRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--hairline-dark);
+}
+
+.pd__thumb {
+  width: 46px;
+  height: 46px;
+  object-fit: cover;
+  border: 1px solid var(--hairline-dark-strong);
+}
+
+.pd__thumbMeta {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  color: var(--ink-inverse-muted);
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.pd__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Pack to the top: a field carrying a validation note must not push its own
+   input down relative to the field beside it. */
+.pd__field {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pd__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-inverse-muted);
+}
+
+.pd__input {
+  width: 100%;
+  padding: 9px 10px;
+  background: var(--panel-fill);
+  border: 1px solid var(--hairline-dark-strong);
+  border-radius: var(--r-0);
+  color: var(--ink-inverse);
+  font-family: var(--font-body);
+  font-size: var(--t-small);
+  line-height: 1.4;
+  transition:
+    border-color var(--dur-fast) var(--ease-out-cubic),
+    background-color var(--dur-fast) var(--ease-out-cubic),
+    box-shadow var(--dur-fast) var(--ease-out-cubic);
+}
+
+.pd__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--panel-fill-strong);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.pd__input:focus-visible {
+  outline: 2px solid var(--accent-lift);
+  outline-offset: 2px;
+}
+
+.pd__input::placeholder {
+  color: var(--n-slate-soft);
+}
+
+.pd__input--area {
+  resize: vertical;
+  min-height: 62px;
+}
+
+.pd__input.is-invalid {
+  border-color: var(--accent-lift);
+}
+
+.pd__fieldNote {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  color: var(--accent-lift);
+}
+
+.pd__error {
+  padding: 8px 10px;
+  border-left: 2px solid var(--accent-lift);
+  background: var(--accent-wash-strong);
+  font-size: var(--t-small);
+  line-height: 1.45;
+  color: var(--ink-inverse);
+}
+
+/* ---- progress ---- */
+
+.pd__progress {
+  position: relative;
+  display: grid;
+  gap: 5px;
+}
+
+.pd__progressBar {
+  height: 3px;
+  background: var(--panel-fill-strong);
+  overflow: hidden;
+}
+
+.pd__progressBar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: var(--p, 0%);
+  background: var(--accent);
+}
+
+.pd__progressText {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--accent-lift);
+}
+
+/* ---- actions ---- */
+
+.pd__actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.pd__actions--split {
+  grid-template-columns: auto 1fr;
+}
+
+.pd__hint {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  color: var(--ink-inverse-muted);
+  text-align: center;
+}
+
+/* ---- success ---- */
+
+.pd__stage--done {
+  gap: 6px;
+}
+
+.pd__doneKicker {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--accent-lift);
+}
+
+.pd__doneRef {
+  font-family: var(--font-mono);
+  font-size: var(--t-h4);
+  letter-spacing: 0.02em;
+  color: var(--ink-inverse);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline-dark);
+}
+
+.pd__doneBody {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--ink-inverse-muted);
+}
+
+/* ---- status line ---- */
+
+.pd__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px var(--sp-4);
+  border-top: 1px solid var(--hairline-dark);
+  background: var(--panel-fill);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  color: var(--ink-inverse-muted);
+  min-height: 30px;
+}
+
+.pd__statusDot {
+  flex: none;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+}
+
+/* ---- desktop ---- */
+
+@media (min-width: 700px) {
+  .pd__body {
+    padding: var(--sp-5);
+  }
+
+  .pd__stage {
+    gap: 12px;
+  }
+
+  .pd__drop {
+    min-height: 128px;
+    gap: 6px;
+  }
+
+  .pd__previewImg {
+    height: 132px;
+  }
+
+  @keyframes pd-scan {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(132px);
+    }
+  }
+
+  .pd__bar,
+  .pd__status {
+    padding-inline: var(--sp-5);
+  }
+
+  .pd__step {
+    padding-inline: var(--sp-5);
+  }
+}
+
+@media (max-width: 380px) {
+  .pd__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pd__led--busy {
+    animation: none;
+  }
+
+  .pd__preview.is-scanning::after {
+    animation: none;
+    opacity: 0;
+  }
+}

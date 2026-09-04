@@ -1,0 +1,152 @@
+/* FAQ — Classic Accordion List / Numbered Question Treatment */
+
+.fq__list {
+  display: grid;
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.fq__row {
+  border-bottom: 1px solid var(--hairline);
+  transition: background-color var(--dur-mid) var(--ease-out-cubic);
+}
+
+.fq__row.is-open {
+  background: var(--surface-raised);
+}
+
+.fq__head {
+  font-weight: inherit;
+}
+
+.fq__trigger {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 32px;
+  align-items: start;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-4) 0;
+  text-align: left;
+}
+
+/* The premium tell for this treatment: the numeral is a different face, a
+   different weight and a much smaller optical scale than the question. */
+.fq__num {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  color: var(--accent-ink);
+  padding-top: 0.45em;
+}
+
+.fq__q {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-small);
+  font-weight: 600;
+  font-size: var(--t-h4);
+  line-height: 1.32;
+  letter-spacing: var(--tr-h3);
+  color: var(--ink);
+  transition: color var(--dur-mid) var(--ease-out-cubic);
+}
+
+.fq__trigger:hover .fq__q {
+  color: var(--accent-ink);
+}
+
+.fq__icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--hairline-strong);
+  color: var(--ink-muted);
+  justify-self: end;
+  transition:
+    border-color var(--dur-mid) var(--ease-out-cubic),
+    background-color var(--dur-mid) var(--ease-out-cubic),
+    color var(--dur-mid) var(--ease-out-cubic);
+}
+
+/* Rotate the glyph, not its box — rotating the container turns the square
+   into a diamond, which reads as decoration rather than a state change. */
+.fq__icon :where(svg) {
+  transition: transform 220ms ease-in-out;
+}
+
+.fq__row.is-open .fq__icon :where(svg) {
+  transform: rotate(45deg);
+}
+
+.fq__trigger:hover .fq__icon {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+.fq__row.is-open .fq__icon {
+  background: var(--accent-block);
+  border-color: var(--accent-block);
+  color: var(--ink-on-accent);
+}
+
+.fq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 380ms var(--ease-out-quart),
+    visibility 0s linear 380ms;
+}
+
+.fq__row.is-open .fq__panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 380ms var(--ease-out-quart),
+    visibility 0s linear 0s;
+}
+
+.fq__panelInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.fq__a {
+  font-size: var(--t-body);
+  line-height: 1.72;
+  color: var(--ink-muted);
+  max-width: 66ch;
+  padding: 0 var(--sp-6) var(--sp-5) 0;
+  margin-left: calc(46px + var(--sp-3));
+  border-left: 1px solid var(--accent);
+  padding-left: var(--sp-4);
+}
+
+@media (min-width: 900px) {
+  .fq__trigger {
+    grid-template-columns: 84px minmax(0, 1fr) 40px;
+    gap: var(--sp-4);
+    padding: var(--sp-5) 0;
+  }
+
+  .fq__q {
+    font-size: var(--t-h3);
+  }
+
+  .fq__a {
+    font-size: var(--t-lead);
+    margin-left: calc(84px + var(--sp-4));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fq__panel,
+  .fq__row.is-open .fq__panel {
+    transition: none;
+  }
+
+  .fq__icon,
+  .fq__icon :where(svg) {
+    transition: none;
+  }
+}

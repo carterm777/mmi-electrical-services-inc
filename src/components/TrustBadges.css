@@ -1,0 +1,116 @@
+/* Trust Badges — Insurance/Bonding/Licensing Detail Block / Badge or Seal Bold */
+
+.tb {
+  overflow: hidden;
+}
+
+.tb__tex {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.tb__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-4);
+  margin-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--hairline-dark-strong);
+}
+
+.tb__title {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-inverse);
+  white-space: nowrap;
+}
+
+.tb__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--hairline-dark);
+}
+
+.tb__row {
+  display: grid;
+  gap: 1px;
+  background: var(--hairline-dark);
+  border: 1px solid var(--hairline-dark);
+}
+
+.tb__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  background: var(--fill-cell-alt);
+  transition: background-color var(--dur-mid) var(--ease-out-cubic);
+}
+
+.tb__item:hover {
+  background: var(--fill-cell-hover);
+}
+
+/* Every seal is the same square, same stroke weight, same optical centre —
+   the row has to read as one system, not four glyphs. */
+.tb__seal {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  background: var(--accent-block);
+  color: var(--ink-on-accent);
+  border: 1px solid var(--accent-lift);
+}
+
+.tb__text {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.tb__label {
+  font-size: var(--t-small);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.005em;
+  color: var(--ink-inverse);
+}
+
+.tb__note {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  line-height: 1.45;
+  letter-spacing: var(--tr-mono-tight);
+  color: var(--ink-inverse-muted);
+}
+
+@media (min-width: 640px) {
+  .tb__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1000px) {
+  .tb__row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .tb__item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-4);
+    padding: var(--sp-5);
+  }
+}

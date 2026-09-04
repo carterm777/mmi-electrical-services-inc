@@ -1,0 +1,119 @@
+/* Final CTA — Urgent or Emergency CTA Banner / Bold Color-Blocked Banner */
+
+.cta__inner {
+  display: grid;
+  gap: var(--sp-6);
+  align-items: start;
+}
+
+.cta__stack {
+  display: grid;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.cta__rule {
+  margin-bottom: var(--sp-2);
+}
+
+.cta__title {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-display);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--tr-h2);
+  color: var(--ink-on-accent);
+  max-width: 16ch;
+}
+
+.cta__body {
+  font-size: var(--t-lead);
+  line-height: var(--lh-lead);
+  color: var(--ink-on-accent);
+  max-width: 50ch;
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+}
+
+.cta__btn {
+  flex: 1 1 220px;
+}
+
+/* Outline button tuned for the copper block: the shared ghost-invert hover
+   is a copper wash, which is invisible here. */
+.cta__btnText {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink-on-accent);
+  --btn-edge: var(--ink-on-accent);
+}
+
+.cta__btnText:hover {
+  --btn-bg: var(--ink-on-accent);
+  --btn-fg: var(--accent-deep);
+  --btn-edge: var(--ink-on-accent);
+}
+
+/* ---- emergency panel ---- */
+
+.cta__side {
+  min-width: 0;
+}
+
+.cta__frameTop {
+  display: block;
+  height: 2px;
+  background: var(--ink-on-accent);
+  transform-origin: left center;
+}
+
+.cta__panel {
+  padding: var(--sp-5) 0 0;
+}
+
+.cta__figure {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-display);
+  font-weight: 400;
+  font-size: var(--t-numeral);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--ink-on-accent);
+}
+
+.cta__figureLabel {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-on-accent);
+  opacity: 0.82;
+  margin-top: var(--sp-3);
+}
+
+.cta__figureNote {
+  font-size: var(--t-small);
+  line-height: 1.6;
+  color: var(--ink-on-accent);
+  opacity: 0.86;
+  max-width: 34ch;
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--accent-rule-invert);
+}
+
+@media (min-width: 900px) {
+  .cta__inner {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    column-gap: var(--sp-8);
+  }
+
+  .cta__btn {
+    flex: 0 0 auto;
+  }
+}

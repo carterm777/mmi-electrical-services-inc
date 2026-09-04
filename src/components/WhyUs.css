@@ -1,0 +1,143 @@
+/* Why Us — Icon + Blurb Grid / Filled Icon Badges */
+
+.wu {
+  overflow: hidden;
+}
+
+.wu__head {
+  display: grid;
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-7);
+  align-items: end;
+}
+
+.wu__headCopy {
+  display: grid;
+  gap: var(--sp-4);
+  align-content: end;
+}
+
+.wu__title {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-mid);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--tr-h2);
+  max-width: 14ch;
+}
+
+.wu__lead {
+  font-size: var(--t-lead);
+  line-height: var(--lh-lead);
+  color: var(--ink-muted);
+  max-width: 40ch;
+}
+
+.wu__figure {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-sunk);
+  border-top: 2px solid var(--accent);
+}
+
+.wu__img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.wu__figCap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 7px 12px;
+  background: var(--scrim-ink);
+  color: var(--ink-inverse-muted);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  text-transform: uppercase;
+}
+
+/* ---- the four reasons ---- */
+
+.wu__row {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.wu__item {
+  display: grid;
+  align-content: start;
+  gap: var(--sp-3);
+  padding: var(--sp-5) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.wu__badge {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: var(--accent-block);
+  color: var(--ink-on-accent);
+}
+
+.wu__itemTitle {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-small);
+  font-weight: 600;
+  font-size: var(--t-h4);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--tr-h3);
+  color: var(--ink);
+}
+
+.wu__itemBody {
+  font-size: var(--t-small);
+  line-height: 1.62;
+  color: var(--ink-muted);
+  max-width: 42ch;
+}
+
+@media (min-width: 700px) {
+  .wu__row {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--sp-6);
+  }
+}
+
+@media (min-width: 1000px) {
+  .wu__head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    column-gap: var(--sp-8);
+  }
+
+  /* Overlapping/Bleeding Image — the photo breaks the shell's right edge so
+     the section reads as art-directed rather than boxed. Clipped by
+     .wu { overflow: hidden } so it can never create a horizontal scroll. */
+  .wu__figure {
+    margin-right: calc(-1 * var(--gutter));
+  }
+
+  .wu__row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 0;
+  }
+
+  .wu__item {
+    padding: var(--sp-5) var(--sp-5) var(--sp-6) 0;
+    border-left: 1px solid var(--hairline);
+    border-bottom: 0;
+    padding-left: var(--sp-5);
+  }
+
+  .wu__item:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+}

@@ -1,0 +1,415 @@
+/* Navigation — Mega Menu Dropdown Nav / Glass Frosted Nav Bar */
+
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  color: var(--ink-inverse);
+}
+
+/* ---- subheader ---- */
+
+.hdr__sub {
+  display: none;
+  background: var(--n-ink-deep);
+  border-bottom: 1px solid var(--hairline-dark);
+}
+
+.hdr__subInner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 34px;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  color: var(--ink-inverse-muted);
+}
+
+.hdr__subLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hdr__subDot {
+  opacity: 0.45;
+}
+
+.hdr__subTail {
+  margin-left: auto;
+  text-transform: uppercase;
+  letter-spacing: var(--tr-mono);
+  color: var(--accent-lift);
+}
+
+/* ---- main bar ---- */
+
+/* At rest the bar sits directly above the ink hero, so it is solid — a
+   frosted panel with nothing behind it just reads as milky grey. The frost
+   switches on once real content starts passing underneath. */
+.hdr__bar {
+  background: var(--surface-dark);
+  border-bottom: 1px solid var(--hairline-dark);
+  transition:
+    background-color 320ms var(--ease-out-cubic),
+    border-color 320ms var(--ease-out-cubic);
+}
+
+.hdr.is-scrolled .hdr__bar {
+  background: var(--glass-dark);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  backdrop-filter: blur(18px) saturate(1.3);
+  border-bottom-color: var(--accent);
+}
+
+.hdr__barInner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: 50px;
+}
+
+/* ---- brand ---- */
+
+.hdr__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hdr__mark {
+  color: var(--ink-inverse);
+  flex: none;
+}
+
+.mark__bars {
+  fill: var(--accent-lift);
+  transition: fill var(--dur-mid) var(--ease-out-cubic);
+}
+
+.hdr__brand:hover .mark__bars {
+  fill: var(--ink-inverse);
+}
+
+.hdr__word {
+  display: grid;
+  line-height: 1;
+}
+
+.hdr__wordMain {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-small);
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: -0.015em;
+}
+
+.hdr__wordSub {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-inverse-muted);
+  margin-top: 3px;
+}
+
+/* ---- nav ---- */
+
+.hdr__nav {
+  display: none;
+  justify-self: center;
+}
+
+.hdr__navList {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, -0.9rem + 1.7vw, 1.5rem);
+}
+
+.hdr__navItem {
+  position: relative;
+}
+
+.hdr__navLink,
+.hdr__navBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.9rem 0;
+  color: var(--ink-inverse);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: clamp(0.05em, -0.02em + 0.08vw, 0.12em);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hdr__navBtn:hover .hdr__navLabel::after,
+.hdr__navBtn[aria-expanded='true'] .hdr__navLabel::after {
+  transform: scaleX(1);
+}
+
+.hdr__navBtn .hdr__navLabel {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.hdr__navBtn .hdr__navLabel::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--accent-lift);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms var(--ease-out-quart);
+}
+
+.hdr__chev {
+  opacity: 0.6;
+  transition: transform var(--dur-mid) var(--ease-out-cubic);
+}
+
+.hdr__navBtn[aria-expanded='true'] .hdr__chev {
+  transform: rotate(180deg);
+}
+
+/* ---- mega panel ---- */
+
+.hdr__mega {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 8px;
+  z-index: 5;
+}
+
+.hdr__megaInner {
+  background: var(--glass-dark-solid);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--hairline-dark);
+  border-top: 2px solid var(--accent);
+  padding: var(--sp-5);
+  box-shadow: var(--sh-panel);
+  min-width: 240px;
+}
+
+.hdr__megaKicker {
+  color: var(--accent-lift);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--hairline-dark);
+}
+
+.hdr__megaCols {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(180px, 1fr));
+  gap: var(--sp-5);
+}
+
+.hdr__megaCol {
+  display: grid;
+  gap: 2px;
+  align-content: start;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 380ms var(--ease-out-cubic),
+    transform 380ms var(--ease-out-cubic);
+  transition-delay: calc(var(--gi) * 70ms);
+}
+
+.hdr__mega:not([hidden]) .hdr__megaCol {
+  opacity: 1;
+  transform: none;
+}
+
+.hdr__megaLink {
+  display: block;
+  padding: 6px 8px 6px 12px;
+  margin-left: -12px;
+  font-size: var(--t-small);
+  color: var(--ink-inverse-muted);
+  border-left: 1px solid transparent;
+  transition:
+    color var(--dur-fast) var(--ease-out-cubic),
+    border-color var(--dur-fast) var(--ease-out-cubic),
+    background-color var(--dur-fast) var(--ease-out-cubic);
+}
+
+.hdr__megaLink:hover,
+.hdr__megaLink:focus-visible {
+  color: var(--ink-inverse);
+  border-left-color: var(--accent);
+  background: var(--panel-fill);
+}
+
+.hdr__megaAll {
+  display: inline-block;
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--hairline-dark);
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--accent-lift);
+}
+
+/* ---- call button ---- */
+
+.hdr__actions {
+  justify-self: end;
+}
+
+.hdr__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 13px 7px 9px;
+  border: 1px solid var(--accent);
+  background: var(--accent-wash);
+  border-radius: var(--r-1);
+  transition:
+    background-color var(--dur-mid) var(--ease-out-cubic),
+    border-color var(--dur-mid) var(--ease-out-cubic),
+    transform var(--dur-mid) var(--ease-out-cubic);
+}
+
+.hdr__call:hover {
+  background: var(--accent-block);
+  border-color: var(--accent-block);
+  transform: translateY(-1px);
+}
+
+.hdr__callIcon {
+  display: grid;
+  place-items: center;
+  color: var(--accent-lift);
+  transition: color var(--dur-mid) var(--ease-out-cubic);
+}
+
+.hdr__call:hover .hdr__callIcon {
+  color: var(--ink-inverse);
+}
+
+.hdr__callText {
+  display: grid;
+  line-height: 1.05;
+}
+
+.hdr__callKicker {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-inverse-muted);
+  margin-bottom: 2px;
+}
+
+.hdr__callNum {
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--ink-inverse);
+  letter-spacing: 0.005em;
+}
+
+/* ---- mobile index strip (no hamburger) ---- */
+
+.hdr__strip {
+  background: var(--surface-dark);
+  border-bottom: 1px solid var(--hairline-dark);
+  overflow: hidden;
+  max-height: 34px;
+  transition:
+    max-height 340ms var(--ease-out-quart),
+    opacity 240ms var(--ease-out-cubic);
+}
+
+.hdr.is-retracted .hdr__strip {
+  max-height: 0;
+  opacity: 0;
+}
+
+.hdr__stripScroll {
+  position: relative;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /* A wide right-hand fade so the overflow reads as scrollable rather than
+     as a link clipped mid-word. */
+  mask-image: linear-gradient(90deg, transparent 0, var(--mask-solid) 12px, var(--mask-solid) calc(100% - 52px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, var(--mask-solid) 12px, var(--mask-solid) calc(100% - 52px), transparent 100%);
+}
+
+.hdr__stripScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sized so the full seven-item index fits at 390px without a clipped word;
+   the mask below still covers narrower devices. */
+.hdr__stripList {
+  display: flex;
+  gap: 10px;
+  padding: 0 var(--gutter);
+  width: max-content;
+}
+
+.hdr__stripLink {
+  display: inline-block;
+  padding: 9px 0;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink-inverse-muted);
+  white-space: nowrap;
+}
+
+.hdr__stripLink:hover {
+  color: var(--accent-lift);
+}
+
+/* ---- breakpoints ---- */
+
+@media (min-width: 1000px) {
+  .hdr__sub {
+    display: block;
+  }
+
+  .hdr__nav {
+    display: block;
+  }
+
+  .hdr__strip {
+    display: none;
+  }
+
+  .hdr__barInner {
+    min-height: 66px;
+  }
+
+  .hdr__wordMain {
+    font-size: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hdr__megaCol {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .hdr__strip {
+    transition: none;
+  }
+}

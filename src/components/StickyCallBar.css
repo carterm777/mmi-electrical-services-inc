@@ -1,0 +1,68 @@
+/* Sticky mobile call bar — Sticky Bar Slide-In on Scroll Threshold */
+
+.scb {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  transform: translateY(105%);
+  transition: transform 380ms var(--ease-out-quart);
+  padding: 8px var(--gutter) calc(8px + env(safe-area-inset-bottom, 0px));
+  background: var(--glass-dark-solid);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--accent);
+}
+
+.scb.is-shown {
+  transform: none;
+}
+
+.scb__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 46px;
+  padding: 6px 14px;
+  background: var(--accent-block);
+  color: var(--ink-on-accent);
+  border: 1px solid var(--accent-lift);
+}
+
+.scb__icon {
+  display: grid;
+  place-items: center;
+}
+
+.scb__text {
+  display: grid;
+  line-height: 1.05;
+}
+
+.scb__kicker {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 3px;
+}
+
+.scb__num {
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+@media (min-width: 900px) {
+  .scb {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scb {
+    transition: none;
+  }
+}

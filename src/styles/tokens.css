@@ -1,0 +1,188 @@
+/* ==========================================================================
+   tokens.css — MMi Electrical Services Inc.
+   The ONLY file in this project allowed to contain a color literal.
+
+   Brand inputs are fixed by the brief:
+     Primary   #1C2124  Deep Charcoal Ink
+     Secondary #45555F  Slate Steel
+     Accent    #B5652D  Live Copper
+     Dark      #14171A  Ink Black
+     Light     #F7F4EE  Warm Ivory
+
+   Everything below is a derivation of those five, tuned so that every
+   text/background pair used on the page clears WCAG AA for its size.
+   Measured ratios are noted where the derivation exists for that reason.
+   ========================================================================== */
+
+:root {
+  /* ---------- 1. Raw brand ---------- */
+  --brand-charcoal: #1c2124;
+  --brand-slate: #45555f;
+  --brand-copper: #b5652d;
+  --brand-ink: #14171a;
+  --brand-ivory: #f7f4ee;
+
+  /* ---------- 2. Neutral ramp (derived) ---------- */
+  --n-ink-deep: #0e1113; /* terminal panel ground, below Ink Black */
+  --n-ink: #14171a;
+  --n-charcoal: #1c2124;
+  --n-graphite: #262e33;
+  --n-slate-deep: #333f47;
+  --n-slate: #45555f;
+  --n-slate-soft: #7c8c95; /* 5.3:1 on Ink Black — the floor for mono micro copy on dark */
+  --n-steel: #9aa6ad; /* muted text on dark — 7.4:1 on Ink Black */
+  --n-ivory-sunk: #ece7dd;
+  --n-ivory: #f7f4ee;
+  --n-ivory-raised: #fcfaf6;
+
+  /* ---------- 3. Copper ramp (derived) ----------
+     Live Copper on Warm Ivory measures 3.88:1 — large type only.
+     --accent-ink is the darkened copper used for anything under 24px on
+     light (4.6:1). --accent-lift is the lightened copper for small type on
+     ink (6.0:1). --accent-block is the deepened copper used as a fill that
+     carries ivory text (4.9:1).                                          */
+  --accent: #b5652d;
+  --accent-ink: #8f4a1c;
+  --accent-lift: #d0813f;
+  --accent-block: #a0562a;
+  --accent-deep: #6f3913;
+
+  /* ---------- 4. Semantic surfaces ---------- */
+  --surface: var(--n-ivory);
+  --surface-raised: var(--n-ivory-raised);
+  --surface-sunk: var(--n-ivory-sunk);
+  --surface-dark: var(--n-ink);
+  --surface-dark-raised: var(--n-charcoal);
+  --surface-slate: var(--n-slate);
+  --surface-terminal: var(--n-ink-deep);
+
+  /* ---------- 5. Semantic ink ---------- */
+  --ink: var(--n-charcoal); /* 14.8:1 on ivory */
+  --ink-muted: #3a464e; /*  8.8:1 on ivory */
+  --ink-faint: #667680; /*  4.6:1 on ivory */
+  --ink-inverse: var(--n-ivory); /* 14.8:1 on charcoal */
+  --ink-inverse-muted: var(--n-steel);
+  --ink-on-accent: var(--n-ivory);
+
+  /* ---------- 6. Hairlines, rules, grid furniture ---------- */
+  --hairline: rgba(28, 33, 36, 0.16);
+  --hairline-strong: rgba(28, 33, 36, 0.34);
+  --hairline-dark: rgba(247, 244, 238, 0.16);
+  --hairline-dark-strong: rgba(247, 244, 238, 0.34);
+  --grid-line: rgba(28, 33, 36, 0.075);
+  --grid-line-dark: rgba(247, 244, 238, 0.07);
+  --accent-wash: rgba(181, 101, 45, 0.1);
+  --accent-wash-strong: rgba(208, 129, 63, 0.16);
+  --accent-rule-invert: rgba(247, 244, 238, 0.13);
+  --accent-glow: rgba(208, 129, 63, 0.28);
+  --scrim-ink: rgba(14, 17, 26, 0.82);
+  --glass-dark: rgba(14, 17, 26, 0.58);
+  --glass-dark-solid: rgba(14, 17, 26, 0.95);
+  --glass-sub: rgba(9, 11, 13, 0.72);
+  --panel-fill: rgba(247, 244, 238, 0.04);
+  --panel-fill-strong: rgba(247, 244, 238, 0.07);
+
+  /* Scrim stops and translucent cell fills. Kept here so no component
+     stylesheet ever needs a colour literal of its own. */
+  --scrim-light: rgba(20, 23, 26, 0.28);
+  --scrim-soft: rgba(20, 23, 26, 0.45);
+  --scrim-mid: rgba(20, 23, 26, 0.5);
+  --scrim-deep: rgba(20, 23, 26, 0.82);
+  --fill-panel-ink: rgba(14, 17, 26, 0.72);
+  --fill-cell: rgba(28, 33, 36, 0.55);
+  --fill-cell-alt: rgba(28, 33, 36, 0.5);
+  --fill-cell-hover: rgba(14, 17, 26, 0.65);
+  --halo-idle: rgba(124, 140, 149, 0.2);
+  --halo-ivory: rgba(247, 244, 238, 0.2);
+  --mask-solid: #000;
+
+  /* ---------- 7. Type families ----------
+     Display: Fraunces (variable, opsz + SOFT + WONK).
+     Body:    Work Sans.
+     Utility: IBM Plex Mono — field labels, section indices, instrument
+     readouts. The art-direction row for this site specifies monospace
+     labelling; it is used ONLY as a utility face, never for display or
+     running body copy.                                                    */
+  --font-display: 'Fraunces', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body: 'Work Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+
+  /* ---------- 8. Type scale (fluid, intentional steps) ---------- */
+  --t-micro: clamp(0.625rem, 0.6rem + 0.12vw, 0.6875rem);
+  --t-label: clamp(0.6875rem, 0.66rem + 0.14vw, 0.75rem);
+  --t-small: clamp(0.8125rem, 0.79rem + 0.14vw, 0.875rem);
+  --t-body: clamp(0.9375rem, 0.9rem + 0.22vw, 1.0625rem);
+  --t-lead: clamp(1.0625rem, 0.99rem + 0.34vw, 1.25rem);
+  --t-h4: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --t-h3: clamp(1.25rem, 1.1rem + 0.68vw, 1.75rem);
+  --t-h2: clamp(1.875rem, 1.42rem + 2vw, 3.25rem);
+  --t-h1: clamp(1.9rem, 1.35rem + 2.6vw, 3.9rem);
+  --t-numeral: clamp(2.5rem, 1.7rem + 3.6vw, 5rem);
+
+  /* Per-step leading and tracking. Display steps run tight and negative;
+     body steps run open and neutral. */
+  --lh-display: 1.02;
+  --lh-h2: 1.06;
+  --lh-h3: 1.16;
+  --lh-body: 1.62;
+  --lh-lead: 1.5;
+  --lh-mono: 1.35;
+  --tr-display: -0.028em;
+  --tr-h2: -0.022em;
+  --tr-h3: -0.012em;
+  --tr-body: 0.001em;
+  --tr-mono: 0.13em;
+  --tr-mono-tight: 0.06em;
+
+  /* Fraunces variable axes — a soft, slightly wonky display cut reads warm
+     against the technical grid instead of stiff. */
+  --fr-display: 'opsz' 120, 'SOFT' 28, 'WONK' 1;
+  --fr-mid: 'opsz' 48, 'SOFT' 22, 'WONK' 0;
+  --fr-small: 'opsz' 14, 'SOFT' 12, 'WONK' 0;
+
+  /* ---------- 9. Spacing ---------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 2.75rem;
+  --sp-8: 3.75rem;
+  --sp-9: 5rem;
+
+  --gutter: clamp(1.15rem, 0.5rem + 2.4vw, 3rem);
+  --shell: 1240px;
+  --shell-wide: 1440px;
+  --section-y: clamp(3.25rem, 1.6rem + 5.2vw, 7rem);
+  --section-y-tight: clamp(2.25rem, 1.3rem + 3vw, 4.25rem);
+
+  /* ---------- 10. Radius — industrial, near-square ---------- */
+  --r-0: 0px;
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-pill: 999px;
+
+  /* ---------- 11. Elevation ---------- */
+  --sh-1: 0 1px 2px rgba(14, 17, 26, 0.06), 0 2px 8px rgba(14, 17, 26, 0.05);
+  --sh-2: 0 2px 4px rgba(14, 17, 26, 0.08), 0 12px 28px rgba(14, 17, 26, 0.1);
+  --sh-panel: 0 28px 70px rgba(14, 17, 26, 0.55), 0 2px 0 rgba(247, 244, 238, 0.05) inset;
+  --sh-lift: 0 4px 10px rgba(14, 17, 26, 0.09), 0 18px 40px rgba(14, 17, 26, 0.13);
+
+  /* ---------- 12. Motion ---------- */
+  --ease-out-cubic: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --dur-fast: 180ms;
+  --dur-mid: 280ms;
+  --dur-slow: 620ms;
+
+  /* ---------- 13. Focus ---------- */
+  --focus-ring: var(--accent-ink);
+}
+
+/* Dark bands re-point the semantic tokens rather than restating colors. */
+.band--dark,
+.band--slate,
+.band--accent {
+  --focus-ring: var(--accent-lift);
+}

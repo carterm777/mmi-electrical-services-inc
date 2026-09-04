@@ -1,0 +1,279 @@
+/* Hero — Hero with Embedded Quote/Booking Form / Raw Industrial Grid Overlay */
+
+.hero {
+  position: relative;
+  background: var(--surface-dark);
+  color: var(--ink-inverse);
+  padding-block: 16px var(--sp-6);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 66% 44%;
+  filter: grayscale(0.42) contrast(1.08) brightness(0.78);
+}
+
+/* Layered Depth Composition: the photo is a ground, not a subject. It is held
+   back hard under the copy column and allowed to come forward on the right,
+   where the terminal panel sits over it. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--surface-dark) 0%, var(--scrim-soft) 18%, var(--scrim-mid) 78%, var(--scrim-deep) 100%),
+    linear-gradient(96deg, var(--surface-dark) 0%, var(--surface-dark) 26%, var(--scrim-deep) 52%, var(--scrim-mid) 100%);
+}
+
+/* The exposed column grid, drawn over the photograph rather than under it —
+   the structure is meant to read as page furniture. */
+.hero__rules {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, var(--grid-line-dark) 0 1px, transparent 1px);
+  background-size: calc(100% / 4) 100%;
+}
+
+.hero__inner {
+  display: grid;
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+/* ---- copy column ---- */
+
+.hero__copy {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+}
+
+.hero__eyebrow {
+  border-top: 1px solid var(--accent);
+  padding-top: 9px;
+  margin-bottom: 14px;
+}
+
+.hero__eyebrowText {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--accent-lift);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-display);
+  font-weight: 400;
+  font-size: var(--t-h1);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  color: var(--ink-inverse);
+  max-width: 22ch;
+  margin-bottom: 12px;
+}
+
+.hero__sub {
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--ink-inverse-muted);
+  max-width: 48ch;
+  margin-bottom: 16px;
+}
+
+/* ---- value badges ---- */
+
+.hero__badges {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--hairline-dark);
+  border: 1px solid var(--hairline-dark);
+  margin-bottom: 16px;
+}
+
+.hero__badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  background: var(--fill-panel-ink);
+  min-width: 0;
+}
+
+.hero__badgeIcon {
+  flex: none;
+  color: var(--accent-lift);
+}
+
+.hero__badgeLabel {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: var(--ink-inverse);
+}
+
+/* ---- CTAs ---- */
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero__cta {
+  flex: 1 1 auto;
+  min-height: 46px;
+  padding-inline: 1rem;
+}
+
+/* ---- panel column ---- */
+
+.hero__panel {
+  min-width: 0;
+  margin-top: 20px;
+}
+
+.hero__reassure {
+  margin-top: 12px;
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--ink-inverse-muted);
+  max-width: 46ch;
+  padding-left: 12px;
+  border-left: 1px solid var(--accent);
+}
+
+/* ---- desktop bottom rail: the hero's footer index ---- */
+
+.hero__rail {
+  display: none;
+}
+
+.hero__railInner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--hairline-dark);
+}
+
+.hero__railLabel {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--accent-lift);
+  flex: none;
+}
+
+.hero__railList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  flex: 1;
+}
+
+.hero__railItem {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  text-transform: uppercase;
+  color: var(--ink-inverse-muted);
+}
+
+.hero__railTail {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono-tight);
+  text-transform: uppercase;
+  color: var(--n-slate-soft);
+  flex: none;
+}
+
+/* ---- breakpoints ---- */
+
+@media (min-width: 700px) {
+  .hero {
+    padding-block: var(--sp-6) var(--sp-8);
+  }
+
+  .hero__rules {
+    background-size: calc(100% / 8) 100%;
+  }
+
+  .hero__badges {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .hero__badge {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 13px 12px;
+  }
+
+  .hero__sub {
+    font-size: var(--t-lead);
+    margin-bottom: 22px;
+  }
+
+  .hero__badges {
+    margin-bottom: 22px;
+  }
+
+  .hero__cta {
+    flex: 0 0 auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  .hero {
+    padding-block: clamp(2rem, 0.5rem + 3vw, 3.5rem) clamp(1.25rem, 0.5rem + 1.5vw, 2rem);
+    min-height: calc(100svh - 100px);
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .hero__rail {
+    display: block;
+    align-self: end;
+    margin-top: clamp(2rem, 0.5rem + 3vw, 3.5rem);
+  }
+
+  .hero__inner {
+    align-self: center;
+    grid-template-columns: minmax(0, 1.15fr) minmax(400px, 0.85fr);
+    gap: clamp(2rem, 0.5rem + 3.4vw, 4.5rem);
+  }
+
+  .hero__panel {
+    margin-top: 0;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 22px;
+  }
+
+  .hero__title {
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 1240px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr) 460px;
+  }
+}

@@ -1,0 +1,171 @@
+/* Coverage — Service Area List or Coverage Zone Grid / Industrial Grid Coverage Map */
+
+.sa {
+  position: relative;
+}
+
+/* ---- Image as Section Divider: light band into dark band ---- */
+
+.sa__divider {
+  position: relative;
+  height: clamp(150px, 20vw, 280px);
+  overflow: hidden;
+  background: var(--surface-dark);
+}
+
+.sa__dividerImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 62%;
+  filter: grayscale(0.45) brightness(0.78);
+}
+
+.sa__dividerScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--scrim-light) 0%,
+    var(--scrim-mid) 55%,
+    var(--surface-dark) 100%
+  );
+}
+
+.sa__band {
+  padding-top: var(--section-y-tight);
+}
+
+.sa__inner {
+  display: grid;
+  gap: var(--sp-7);
+  align-items: start;
+}
+
+/* ---- copy column ---- */
+
+.sa__copy {
+  min-width: 0;
+}
+
+.sa__stack {
+  display: grid;
+  justify-items: start;
+  gap: var(--sp-4);
+}
+
+.sa__rule {
+  width: 100%;
+}
+
+.sa__title {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-mid);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--tr-h2);
+  color: var(--ink-inverse);
+  max-width: 12ch;
+}
+
+.sa__intro {
+  font-size: var(--t-lead);
+  line-height: var(--lh-lead);
+  color: var(--ink-inverse-muted);
+  max-width: 46ch;
+}
+
+.sa__base {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--hairline-dark-strong);
+  border-left: 2px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--accent-lift);
+}
+
+.sa__cta {
+  margin-top: 2px;
+}
+
+/* ---- coverage zone grid ---- */
+
+.sa__zones {
+  display: grid;
+  gap: var(--sp-6);
+  min-width: 0;
+}
+
+.sa__groupTitle {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-inverse-muted);
+  padding-bottom: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--hairline-dark-strong);
+}
+
+.sa__cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--hairline-dark);
+  border: 1px solid var(--hairline-dark);
+}
+
+.sa__cell {
+  padding: 11px 12px;
+  background: var(--fill-cell);
+  font-size: var(--t-small);
+  line-height: 1.3;
+  color: var(--ink-inverse);
+  transition:
+    background-color var(--dur-mid) var(--ease-out-cubic),
+    color var(--dur-mid) var(--ease-out-cubic);
+}
+
+.sa__cell:hover {
+  background: var(--accent-block);
+  color: var(--ink-on-accent);
+}
+
+@media (min-width: 560px) {
+  .sa__cells {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .sa__inner {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    column-gap: var(--sp-8);
+  }
+
+  .sa__copy {
+    position: sticky;
+    top: 110px;
+  }
+
+  .sa__cells {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .sa__cells--wide {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa__cell {
+    transition: none;
+  }
+}

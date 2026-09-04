@@ -1,0 +1,416 @@
+/* ==========================================================================
+   app.css — page scaffolding and the patterns shared by more than one
+   section. Section-specific rules live in components/<Name>.css.
+
+   Specificity contract: every selector in this project is exactly one class.
+   Bare element/attribute selectors are wrapped in :where() so they score 0.
+   ========================================================================== */
+
+body {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--tr-body);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------- */
+/* Shell + bands                                                          */
+/* --------------------------------------------------------------------- */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  position: relative;
+}
+
+.shell--wide {
+  max-width: var(--shell-wide);
+}
+
+.band {
+  position: relative;
+  padding-block: var(--section-y);
+  isolation: isolate;
+}
+
+.band--light {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.band--sunk {
+  background: var(--surface-sunk);
+  color: var(--ink);
+}
+
+.band--dark {
+  background: var(--surface-dark);
+  color: var(--ink-inverse);
+}
+
+.band--slate {
+  background: var(--surface-slate);
+  color: var(--ink-inverse);
+}
+
+.band--accent {
+  background: var(--accent-block);
+  color: var(--ink-on-accent);
+}
+
+.band--tight {
+  padding-block: var(--section-y-tight);
+}
+
+/* The exposed grid. This is the page's structural risk: column guides are
+   left visible as page furniture rather than hidden behind the content. */
+.rulefield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: linear-gradient(90deg, var(--grid-line) 0 1px, transparent 1px);
+  background-size: calc(100% / 3) 100%;
+}
+
+.band--dark .rulefield,
+.band--slate .rulefield {
+  background-image: linear-gradient(90deg, var(--grid-line-dark) 0 1px, transparent 1px);
+}
+
+.band--accent .rulefield {
+  background-image: linear-gradient(90deg, var(--accent-rule-invert) 0 1px, transparent 1px);
+}
+
+@media (min-width: 700px) {
+  .rulefield {
+    background-size: calc(100% / 6) 100%;
+  }
+}
+
+/* --------------------------------------------------------------------- */
+/* Section head — the running index that runs the whole page              */
+/* --------------------------------------------------------------------- */
+
+.shead {
+  display: grid;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-7);
+}
+
+.shead__rule {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  border-top: 1px solid var(--hairline-strong);
+  padding-top: var(--sp-3);
+}
+
+.band--dark .shead__rule,
+.band--slate .shead__rule,
+.band--accent .shead__rule {
+  border-top-color: var(--hairline-dark-strong);
+}
+
+.shead__idx {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  white-space: nowrap;
+}
+
+.band--dark .shead__idx,
+.band--slate .shead__idx,
+.band--accent .shead__idx {
+  color: var(--accent-lift);
+}
+
+.band--accent .shead__idx {
+  color: var(--ink-on-accent);
+}
+
+.shead__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.band--dark .shead__eyebrow,
+.band--slate .shead__eyebrow,
+.band--accent .shead__eyebrow {
+  color: var(--ink-inverse-muted);
+}
+
+.band--accent .shead__eyebrow {
+  color: var(--ink-on-accent);
+}
+
+.shead__title {
+  font-family: var(--font-display);
+  font-variation-settings: var(--fr-mid);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--tr-h2);
+  max-width: 20ch;
+}
+
+.shead__lead {
+  font-size: var(--t-lead);
+  line-height: var(--lh-lead);
+  color: var(--ink-muted);
+  max-width: 56ch;
+}
+
+.band--dark .shead__lead,
+.band--slate .shead__lead {
+  color: var(--ink-inverse-muted);
+}
+
+.shead--split {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .shead--split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--sp-8);
+    align-items: end;
+  }
+
+  .shead--split .shead__rule {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --------------------------------------------------------------------- */
+/* Buttons                                                                */
+/* --------------------------------------------------------------------- */
+
+.btn {
+  --btn-bg: var(--accent-block);
+  --btn-fg: var(--ink-on-accent);
+  --btn-edge: var(--accent-block);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 0.85em 1.3em;
+  min-height: 48px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid var(--btn-edge);
+  border-radius: var(--r-1);
+  font-family: var(--font-body);
+  font-size: var(--t-small);
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  line-height: 1.1;
+  text-align: center;
+  transition:
+    transform var(--dur-mid) var(--ease-out-cubic),
+    background-color var(--dur-mid) var(--ease-out-cubic),
+    box-shadow var(--dur-mid) var(--ease-out-cubic),
+    border-color var(--dur-mid) var(--ease-out-cubic);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sh-lift);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn__icon {
+  flex: none;
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink);
+  --btn-edge: var(--hairline-strong);
+}
+
+.btn--ghost:hover {
+  --btn-edge: var(--accent-ink);
+  --btn-bg: var(--accent-wash);
+  box-shadow: none;
+}
+
+.btn--ghost-invert {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink-inverse);
+  --btn-edge: var(--hairline-dark-strong);
+}
+
+.btn--ghost-invert:hover {
+  --btn-edge: var(--accent-lift);
+  --btn-bg: var(--accent-wash-strong);
+  box-shadow: none;
+}
+
+.btn--ink {
+  --btn-bg: var(--n-ink);
+  --btn-fg: var(--ink-inverse);
+  --btn-edge: var(--n-ink);
+}
+
+.btn--wide {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------- */
+/* Shared micro-patterns                                                  */
+/* --------------------------------------------------------------------- */
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  line-height: var(--lh-mono);
+}
+
+.tick {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--hairline-strong);
+  pointer-events: none;
+}
+
+.tick--tl {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.tick--tr {
+  top: -1px;
+  right: -1px;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.tick--bl {
+  bottom: -1px;
+  left: -1px;
+  border-right: 0;
+  border-top: 0;
+}
+
+.tick--br {
+  bottom: -1px;
+  right: -1px;
+  border-left: 0;
+  border-top: 0;
+}
+
+/* Underline Sweep — the page's one link hover language. */
+.sweep {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.sweep::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms var(--ease-out-quart);
+}
+
+.sweep:hover::after,
+.sweep:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep::after {
+    transition: none;
+  }
+}
+
+.skip-link {
+  background: var(--n-ink);
+  color: var(--ink-inverse);
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: var(--tr-mono-tight);
+}
+
+.page {
+  position: relative;
+}
+
+/* Sticky call bar clearance so the footer is never covered on mobile. */
+.page__pad {
+  height: 0;
+}
+
+@media (max-width: 899px) {
+  .page__pad {
+    height: 62px;
+  }
+}
+
+/* Every photo ships explicit width/height attributes to reserve its box, and
+   those map to presentational hints (`height: 1200px`). That silently beats
+   `aspect-ratio: auto` and stretches any image sized by aspect-ratio alone.
+   Wrapped in :where() so it scores zero and any real height rule still wins. */
+:where(img[width][height]) {
+  height: auto;
+}
+
+.figure {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: var(--surface-sunk);
+}
+
+.figure__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cap {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
